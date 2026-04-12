@@ -1,0 +1,80 @@
+---
+const steps = [
+  {
+    number: "01",
+    title: "Descubrimiento",
+    description: "Analizamos tus objetivos, audiencia y competencia para definir la estrategia perfecta.",
+  },
+  {
+    number: "02",
+    title: "Diseño",
+    description: "Creamos wireframes y diseños visuales que dan vida a tu visión de manera única.",
+  },
+  {
+    number: "03",
+    title: "Desarrollo",
+    description: "Transformamos los diseños en código limpio, eficiente y escalable.",
+  },
+  {
+    number: "04",
+    title: "Lanzamiento",
+    description: "Desplegamos tu proyecto y te acompañamos en su evolución continua.",
+  },
+];
+---
+
+<section id="proceso" class="section-padding bg-gray-900/50 relative overflow-hidden">
+  <!-- Decorative elements -->
+  <div class="absolute left-0 top-1/2 -translate-y-1/2 w-px h-3/4 bg-gradient-to-b from-transparent via-primary/30 to-transparent"></div>
+  
+  <div class="max-w-7xl mx-auto">
+    <!-- Section header -->
+    <div class="text-center mb-20">
+      <span class="font-mono text-primary text-sm mb-4 block">// Proceso</span>
+      <h2 class="text-4xl md:text-5xl font-bold mb-6">
+        Cómo
+        <span class="text-primary">trabajamos</span>
+      </h2>
+      <p class="font-mono text-gray-400 max-w-xl mx-auto">
+        Un proceso colaborativo y transparente diseñado para entregar resultados excepcionales.
+      </p>
+    </div>
+
+    <!-- Process steps -->
+    <div class="relative">
+      <!-- Connection line -->
+      <div class="hidden md:block absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent"></div>
+      
+      <div class="grid md:grid-cols-4 gap-8">
+        {steps.map((step, index) => (
+          <div class="group relative">
+            <!-- Step card -->
+            <div class="relative p-8 rounded-2xl border border-gray-800 bg-dark hover:border-primary/50 transition-all duration-500 text-center">
+              <!-- Glow -->
+              <div class="absolute inset-0 rounded-2xl bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+              
+              <div class="relative z-10">
+                <!-- Number circle -->
+                <div class="w-16 h-16 mx-auto mb-6 rounded-full border-2 border-gray-700 group-hover:border-primary flex items-center justify-center transition-colors duration-300">
+                  <span class="font-mono text-xl text-gray-500 group-hover:text-primary transition-colors duration-300">
+                    {step.number}
+                  </span>
+                </div>
+                
+                <!-- Title -->
+                <h3 class="text-xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">
+                  {step.title}
+                </h3>
+                
+                <!-- Description -->
+                <p class="font-mono text-sm text-gray-400 leading-relaxed">
+                  {step.description}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

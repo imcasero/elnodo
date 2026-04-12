@@ -1,0 +1,82 @@
+---
+const services = [
+  {
+    number: "01",
+    title: "Diseño Web",
+    description: "Creamos interfaces intuitivas y visualmente impactantes que capturan la esencia de tu marca y conectan con tu audiencia.",
+    features: ["UI/UX Design", "Prototipos interactivos", "Design Systems"],
+  },
+  {
+    number: "02",
+    title: "Desarrollo Web",
+    description: "Construimos sitios web y aplicaciones de alto rendimiento utilizando las tecnologías más modernas del mercado.",
+    features: ["React / Next.js", "Astro / Vite", "Headless CMS"],
+  },
+  {
+    number: "03",
+    title: "Branding Digital",
+    description: "Desarrollamos identidades visuales coherentes que destacan en el ecosistema digital y generan reconocimiento.",
+    features: ["Identidad visual", "Motion design", "Guidelines"],
+  },
+  {
+    number: "04",
+    title: "Consultoría",
+    description: "Asesoramos a empresas en su transformación digital, optimizando procesos y maximizando resultados.",
+    features: ["Estrategia digital", "Auditorías UX", "Optimización"],
+  },
+];
+---
+
+<section id="servicios" class="section-padding bg-dark relative">
+  <!-- Section header -->
+  <div class="max-w-7xl mx-auto mb-20">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <div>
+        <span class="font-mono text-primary text-sm mb-4 block">// Servicios</span>
+        <h2 class="text-4xl md:text-5xl font-bold">
+          Lo que
+          <span class="text-primary">hacemos</span>
+        </h2>
+      </div>
+      <p class="font-mono text-gray-400 max-w-md text-sm">
+        Combinamos diseño estratégico con desarrollo técnico para crear productos digitales que impulsan tu negocio.
+      </p>
+    </div>
+  </div>
+
+  <!-- Services grid -->
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-6">
+    {services.map((service, index) => (
+      <div 
+        class="group relative p-8 md:p-10 rounded-2xl border border-gray-800 bg-gray-900/30 hover:border-primary/50 transition-all duration-500 hover:bg-gray-900/50"
+      >
+        <!-- Glow effect on hover -->
+        <div class="absolute inset-0 rounded-2xl bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+        
+        <div class="relative z-10">
+          <!-- Number -->
+          <span class="font-mono text-primary text-sm">{service.number}</span>
+          
+          <!-- Title -->
+          <h3 class="text-2xl md:text-3xl font-bold mt-4 mb-4 group-hover:text-primary transition-colors duration-300">
+            {service.title}
+          </h3>
+          
+          <!-- Description -->
+          <p class="text-gray-400 mb-6 leading-relaxed">
+            {service.description}
+          </p>
+          
+          <!-- Features -->
+          <div class="flex flex-wrap gap-2">
+            {service.features.map((feature) => (
+              <span class="font-mono text-xs px-3 py-1.5 rounded-full border border-gray-700 text-gray-400 group-hover:border-primary/30 group-hover:text-primary transition-all duration-300">
+                {feature}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,101 @@
+---
+const navLinks = [
+  { href: "#servicios", label: "Servicios" },
+  { href: "#proyectos", label: "Proyectos" },
+  { href: "#proceso", label: "Proceso" },
+  { href: "#contacto", label: "Contacto" },
+];
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="header">
+  <nav class="flex items-center justify-between px-6 md:px-12 lg:px-24 py-6">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-3 group">
+      <img 
+        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/B24BBEC4-1ADA-4F89-A389-A0A404EC66D9-F96bhzUjbVSgn8FAudTZGttxeA9TNX.png" 
+        alt="elnodo icon" 
+        class="w-10 h-10 transition-transform duration-300 group-hover:rotate-90"
+      />
+      <span class="text-2xl font-bold tracking-tight">
+        el<span class="text-primary">nodo</span>
+      </span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex items-center gap-10">
+      {navLinks.map((link) => (
+        <a 
+          href={link.href} 
+          class="font-mono text-sm text-gray-400 hover:text-primary transition-colors duration-300 relative group"
+        >
+          {link.label}
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+        </a>
+      ))}
+    </div>
+
+    <!-- CTA Button -->
+    <a href="#contacto" class="hidden md:block btn-primary text-sm">
+      Hablemos
+    </a>
+
+    <!-- Mobile Menu Button -->
+    <button class="md:hidden text-light" id="mobile-menu-btn" aria-label="Menu">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="md:hidden fixed inset-0 bg-dark/95 backdrop-blur-lg z-40 hidden" id="mobile-menu">
+    <div class="flex flex-col items-center justify-center h-full gap-8">
+      {navLinks.map((link) => (
+        <a 
+          href={link.href} 
+          class="text-2xl font-medium text-light hover:text-primary transition-colors"
+        >
+          {link.label}
+        </a>
+      ))}
+      <a href="#contacto" class="btn-primary mt-4">Hablemos</a>
+    </div>
+    <button class="absolute top-6 right-6 text-light" id="close-menu-btn" aria-label="Cerrar menu">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('header');
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const closeMenuBtn = document.getElementById('close-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  // Scroll effect
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header?.classList.add('bg-dark/80', 'backdrop-blur-lg');
+    } else {
+      header?.classList.remove('bg-dark/80', 'backdrop-blur-lg');
+    }
+  });
+
+  // Mobile menu toggle
+  mobileMenuBtn?.addEventListener('click', () => {
+    mobileMenu?.classList.remove('hidden');
+  });
+
+  closeMenuBtn?.addEventListener('click', () => {
+    mobileMenu?.classList.add('hidden');
+  });
+
+  // Close menu on link click
+  mobileMenu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+    });
+  });
+</script>

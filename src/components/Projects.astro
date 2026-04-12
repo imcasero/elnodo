@@ -1,0 +1,98 @@
+---
+const projects = [
+  {
+    title: "Fintech Dashboard",
+    category: "Diseño UI/UX + Desarrollo",
+    description: "Plataforma de gestión financiera con visualización de datos en tiempo real.",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
+    tags: ["React", "TypeScript", "D3.js"],
+  },
+  {
+    title: "E-commerce Premium",
+    category: "Diseño + Desarrollo Web",
+    description: "Tienda online de alta gama con experiencia de compra personalizada.",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+    tags: ["Next.js", "Shopify", "Tailwind"],
+  },
+  {
+    title: "App de Bienestar",
+    category: "Branding + UI/UX",
+    description: "Aplicación móvil para seguimiento de hábitos saludables.",
+    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop",
+    tags: ["Figma", "React Native", "Motion"],
+  },
+];
+---
+
+<section id="proyectos" class="section-padding relative overflow-hidden">
+  <!-- Background accent -->
+  <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-primary/5 to-transparent pointer-events-none"></div>
+  
+  <div class="max-w-7xl mx-auto relative z-10">
+    <!-- Section header -->
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-20">
+      <div>
+        <span class="font-mono text-primary text-sm mb-4 block">// Proyectos</span>
+        <h2 class="text-4xl md:text-5xl font-bold">
+          Trabajo
+          <span class="text-primary">seleccionado</span>
+        </h2>
+      </div>
+      <a href="#" class="font-mono text-sm text-gray-400 hover:text-primary transition-colors group flex items-center gap-2">
+        Ver todos los proyectos
+        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+
+    <!-- Projects grid -->
+    <div class="space-y-8">
+      {projects.map((project, index) => (
+        <article class="group relative grid md:grid-cols-2 gap-8 items-center p-6 md:p-8 rounded-2xl border border-gray-800 hover:border-primary/30 bg-gray-900/20 hover:bg-gray-900/40 transition-all duration-500">
+          <!-- Image -->
+          <div class={`relative overflow-hidden rounded-xl ${index % 2 === 1 ? 'md:order-2' : ''}`}>
+            <div class="aspect-video bg-gray-800">
+              <img 
+                src={project.image} 
+                alt={project.title}
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          </div>
+
+          <!-- Content -->
+          <div class={`${index % 2 === 1 ? 'md:order-1' : ''}`}>
+            <span class="font-mono text-primary text-xs mb-3 block">{project.category}</span>
+            <h3 class="text-2xl md:text-3xl font-bold mb-4 group-hover:text-primary transition-colors duration-300">
+              {project.title}
+            </h3>
+            <p class="text-gray-400 mb-6 leading-relaxed">
+              {project.description}
+            </p>
+            
+            <!-- Tags -->
+            <div class="flex flex-wrap gap-2 mb-6">
+              {project.tags.map((tag) => (
+                <span class="font-mono text-xs px-3 py-1 rounded-full bg-gray-800 text-gray-400">
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <!-- Link -->
+            <a href="#" class="inline-flex items-center gap-2 font-mono text-sm text-light hover:text-primary transition-colors group/link">
+              Ver proyecto
+              <svg class="w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
