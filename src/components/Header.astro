@@ -8,12 +8,12 @@ const navLinks = [
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="header">
-  <nav class="flex items-center justify-between px-6 md:px-12 lg:px-24 py-6">
+  <nav class="flex items-center justify-between px-6 md:px-12 lg:px-24 py-6" aria-label="Navegación principal">
     <!-- Logo -->
     <a href="/" class="flex items-center gap-3 group">
-      <img 
-        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/B24BBEC4-1ADA-4F89-A389-A0A404EC66D9-F96bhzUjbVSgn8FAudTZGttxeA9TNX.png" 
-        alt="elnodo icon" 
+      <img
+        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/B24BBEC4-1ADA-4F89-A389-A0A404EC66D9-F96bhzUjbVSgn8FAudTZGttxeA9TNX.png"
+        alt="elnodo icon"
         class="w-10 h-10 transition-transform duration-300 group-hover:rotate-90"
       />
       <span class="text-2xl font-bold tracking-tight">
@@ -24,8 +24,8 @@ const navLinks = [
     <!-- Desktop Navigation -->
     <div class="hidden md:flex items-center gap-10">
       {navLinks.map((link) => (
-        <a 
-          href={link.href} 
+        <a
+          href={link.href}
           class="font-mono text-sm text-gray-400 hover:text-primary transition-colors duration-300 relative group"
         >
           {link.label}
@@ -40,19 +40,32 @@ const navLinks = [
     </a>
 
     <!-- Mobile Menu Button -->
-    <button class="md:hidden text-light" id="mobile-menu-btn" aria-label="Menu">
-      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <button
+      class="md:hidden text-light"
+      id="mobile-menu-btn"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
       </svg>
     </button>
   </nav>
 
   <!-- Mobile Menu -->
-  <div class="md:hidden fixed inset-0 bg-dark/95 backdrop-blur-lg z-40 hidden" id="mobile-menu">
+  <div
+    class="md:hidden fixed inset-0 bg-dark/95 backdrop-blur-lg z-40 hidden"
+    id="mobile-menu"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Menú de navegación"
+    aria-hidden="true"
+  >
     <div class="flex flex-col items-center justify-center h-full gap-8">
       {navLinks.map((link) => (
-        <a 
-          href={link.href} 
+        <a
+          href={link.href}
           class="text-2xl font-medium text-light hover:text-primary transition-colors"
         >
           {link.label}
@@ -60,8 +73,12 @@ const navLinks = [
       ))}
       <a href="#contacto" class="btn-primary mt-4">Hablemos</a>
     </div>
-    <button class="absolute top-6 right-6 text-light" id="close-menu-btn" aria-label="Cerrar menu">
-      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <button
+      class="absolute top-6 right-6 text-light"
+      id="close-menu-btn"
+      aria-label="Cerrar menú"
+    >
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </button>
@@ -70,8 +87,8 @@ const navLinks = [
 
 <script>
   const header = document.getElementById('header');
-  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-  const closeMenuBtn = document.getElementById('close-menu-btn');
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn') as HTMLButtonElement | null;
+  const closeMenuBtn = document.getElementById('close-menu-btn') as HTMLButtonElement | null;
   const mobileMenu = document.getElementById('mobile-menu');
 
   // Scroll effect
@@ -83,19 +100,57 @@ const navLinks = [
     }
   });
 
-  // Mobile menu toggle
-  mobileMenuBtn?.addEventListener('click', () => {
+  function openMenu() {
     mobileMenu?.classList.remove('hidden');
-  });
+    mobileMenu?.setAttribute('aria-hidden', 'false');
+    mobileMenuBtn?.setAttribute('aria-expanded', 'true');
+    mobileMenuBtn?.setAttribute('aria-label', 'Cerrar menú');
+    // Move focus to close button
+    closeMenuBtn?.focus();
+  }
 
-  closeMenuBtn?.addEventListener('click', () => {
+  function closeMenu() {
     mobileMenu?.classList.add('hidden');
+    mobileMenu?.setAttribute('aria-hidden', 'true');
+    mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+    mobileMenuBtn?.setAttribute('aria-label', 'Abrir menú');
+    // Restore focus to hamburger button
+    mobileMenuBtn?.focus();
+  }
+
+  mobileMenuBtn?.addEventListener('click', openMenu);
+  closeMenuBtn?.addEventListener('click', closeMenu);
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu && !mobileMenu.classList.contains('hidden')) {
+      closeMenu();
+    }
   });
 
-  // Close menu on link click
+  // Focus trap inside mobile menu
+  mobileMenu?.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const focusable = mobileMenu.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled])'
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else {
+      if (document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  });
+
+  // Close menu on nav link click
   mobileMenu?.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      mobileMenu?.classList.add('hidden');
-    });
+    link.addEventListener('click', closeMenu);
   });
 </script>

@@ -1,9 +1,9 @@
 ---
 ---
 
-<section id="contacto" class="section-padding relative overflow-hidden">
+<section id="contacto" class="section-padding relative overflow-hidden" aria-labelledby="contacto-heading">
   <!-- Background effects -->
-  <div class="absolute inset-0">
+  <div class="absolute inset-0" aria-hidden="true">
     <div class="absolute bottom-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
   </div>
 
@@ -11,8 +11,8 @@
     <div class="grid lg:grid-cols-2 gap-16 items-center">
       <!-- Left content -->
       <div>
-        <span class="font-mono text-primary text-sm mb-4 block">// Contacto</span>
-        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+        <span class="font-mono text-primary text-sm mb-4 block" aria-hidden="true">// Contacto</span>
+        <h2 id="contacto-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
           Hagamos algo
           <span class="text-primary text-glow">increíble</span>
           juntos
@@ -24,25 +24,25 @@
         <!-- Contact info -->
         <div class="space-y-6">
           <a href="mailto:hola@elnodo.studio" class="group flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full border border-gray-700 group-hover:border-primary flex items-center justify-center transition-colors duration-300">
-              <svg class="w-5 h-5 text-gray-400 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-12 h-12 rounded-full border border-gray-700 group-hover:border-primary flex items-center justify-center transition-colors duration-300" aria-hidden="true">
+              <svg class="w-5 h-5 text-gray-400 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
             </div>
             <div>
-              <span class="font-mono text-xs text-gray-500 block">Email</span>
+              <span class="font-mono text-xs text-gray-400 block">Email</span>
               <span class="text-light group-hover:text-primary transition-colors">hola@elnodo.studio</span>
             </div>
           </a>
 
-          <a href="https://elnodo.studio" target="_blank" class="group flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full border border-gray-700 group-hover:border-primary flex items-center justify-center transition-colors duration-300">
-              <svg class="w-5 h-5 text-gray-400 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <a href="https://elnodo.studio" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full border border-gray-700 group-hover:border-primary flex items-center justify-center transition-colors duration-300" aria-hidden="true">
+              <svg class="w-5 h-5 text-gray-400 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
               </svg>
             </div>
             <div>
-              <span class="font-mono text-xs text-gray-500 block">Web</span>
+              <span class="font-mono text-xs text-gray-400 block">Web</span>
               <span class="text-light group-hover:text-primary transition-colors">elnodo.studio</span>
             </div>
           </a>
@@ -51,26 +51,34 @@
 
       <!-- Contact form -->
       <div class="p-8 md:p-10 rounded-2xl border border-gray-800 bg-gray-900/30 backdrop-blur-sm">
-        <form class="space-y-6">
+        <form class="space-y-6" aria-label="Formulario de contacto" novalidate>
           <div class="grid sm:grid-cols-2 gap-6">
             <div>
-              <label for="name" class="font-mono text-xs text-gray-400 mb-2 block">Nombre</label>
-              <input 
-                type="text" 
+              <label for="name" class="font-mono text-xs text-gray-400 mb-2 flex items-center gap-1">
+                Nombre
+                <span class="text-primary" aria-hidden="true">*</span>
+              </label>
+              <input
+                type="text"
                 id="name"
                 name="name"
                 required
+                aria-required="true"
                 class="w-full px-4 py-3 rounded-lg bg-dark border border-gray-700 text-light placeholder-gray-500 focus:outline-none focus:border-primary transition-colors"
                 placeholder="Tu nombre"
               />
             </div>
             <div>
-              <label for="email" class="font-mono text-xs text-gray-400 mb-2 block">Email</label>
-              <input 
-                type="email" 
+              <label for="email" class="font-mono text-xs text-gray-400 mb-2 flex items-center gap-1">
+                Email
+                <span class="text-primary" aria-hidden="true">*</span>
+              </label>
+              <input
+                type="email"
                 id="email"
                 name="email"
                 required
+                aria-required="true"
                 class="w-full px-4 py-3 rounded-lg bg-dark border border-gray-700 text-light placeholder-gray-500 focus:outline-none focus:border-primary transition-colors"
                 placeholder="tu@email.com"
               />
@@ -79,26 +87,36 @@
 
           <div>
             <label for="service" class="font-mono text-xs text-gray-400 mb-2 block">Servicio</label>
-            <select 
-              id="service"
-              name="service"
-              class="w-full px-4 py-3 rounded-lg bg-dark border border-gray-700 text-light focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer"
-            >
-              <option value="">Selecciona un servicio</option>
-              <option value="web-design">Diseño Web</option>
-              <option value="web-dev">Desarrollo Web</option>
-              <option value="branding">Branding Digital</option>
-              <option value="consulting">Consultoría</option>
-            </select>
+            <div class="relative">
+              <select
+                id="service"
+                name="service"
+                class="w-full px-4 py-3 rounded-lg bg-dark border border-gray-700 text-light focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer pr-10"
+              >
+                <option value="">Selecciona un servicio</option>
+                <option value="web-design">Diseño Web</option>
+                <option value="web-dev">Desarrollo Web</option>
+                <option value="branding">Branding Digital</option>
+                <option value="consulting">Consultoría</option>
+              </select>
+              <!-- Custom arrow -->
+              <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
           </div>
 
           <div>
-            <label for="message" class="font-mono text-xs text-gray-400 mb-2 block">Mensaje</label>
-            <textarea 
+            <label for="message" class="font-mono text-xs text-gray-400 mb-2 flex items-center gap-1">
+              Mensaje
+              <span class="text-primary" aria-hidden="true">*</span>
+            </label>
+            <textarea
               id="message"
               name="message"
               rows="4"
               required
+              aria-required="true"
               class="w-full px-4 py-3 rounded-lg bg-dark border border-gray-700 text-light placeholder-gray-500 focus:outline-none focus:border-primary transition-colors resize-none"
               placeholder="Cuéntanos sobre tu proyecto..."
             ></textarea>
@@ -107,6 +125,10 @@
           <button type="submit" class="w-full btn-primary">
             Enviar mensaje
           </button>
+
+          <p class="font-mono text-xs text-gray-400 text-center">
+            <span class="text-primary" aria-hidden="true">*</span> Campos obligatorios
+          </p>
         </form>
       </div>
     </div>
