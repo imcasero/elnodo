@@ -1,0 +1,26 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 180 180"
+  class:list={["shrink-0", className]}
+  role="img"
+  aria-label="elnodo"
+>
+  <g stroke="currentColor" stroke-width="11" stroke-linecap="round">
+    <line x1="90" y1="90" x2="90" y2="34" />
+    <line x1="90" y1="90" x2="40" y2="132" />
+    <line x1="90" y1="90" x2="140" y2="132" />
+  </g>
+  <g fill="currentColor">
+    <circle cx="90" cy="34" r="13" />
+    <circle cx="40" cy="132" r="13" />
+    <circle cx="140" cy="132" r="13" />
+  </g>
+  <circle cx="90" cy="90" r="24" fill="var(--color-primary)" />
+</svg>

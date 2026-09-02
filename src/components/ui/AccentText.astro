@@ -1,0 +1,21 @@
+---
+interface Props {
+  /** `primary` tints the accent lime; `dark` leaves it in the current colour. */
+  tone?: "primary" | "dark";
+  glow?: boolean;
+  class?: string;
+}
+
+const { tone = "primary", glow = false, class: className } = Astro.props;
+---
+
+<span
+  class:list={[
+    "font-serif italic lowercase",
+    tone === "primary" && "text-primary",
+    glow && "text-glow",
+    className,
+  ]}
+>
+  <slot />
+</span>

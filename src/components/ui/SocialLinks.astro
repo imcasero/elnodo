@@ -1,0 +1,34 @@
+---
+import { socialLinks } from "@/data/site";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<ul class:list={["flex gap-3", className]}>
+  {
+    socialLinks.map((social) => (
+      <li>
+        <a
+          href={social.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={social.name}
+          class="group flex size-10 items-center justify-center rounded-full border border-white/15 transition-colors duration-300 hover:border-primary hover:bg-primary"
+        >
+          <svg
+            class="size-4 text-gray-400 transition-colors group-hover:text-dark"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path d={social.icon} />
+          </svg>
+        </a>
+      </li>
+    ))
+  }
+</ul>

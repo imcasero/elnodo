@@ -1,0 +1,59 @@
+---
+import Section from "@/components/layout/Section.astro";
+import SectionHeading from "@/components/ui/SectionHeading.astro";
+import HeadingLine from "@/components/ui/HeadingLine.astro";
+import ContactForm from "@/components/forms/ContactForm.astro";
+import { site } from "@/data/site";
+
+const channels = [
+  { label: "Email", value: site.email, href: `mailto:${site.email}` },
+  { label: "Web", value: site.domain, href: site.url },
+];
+---
+
+<Section id="contacto" class="overflow-hidden border-t border-white/10" aria-labelledby="contacto-heading">
+  <div class="absolute inset-0 -z-10" aria-hidden="true">
+    <div class="absolute bottom-0 left-1/4 h-[40vw] w-[40vw] rounded-full bg-primary/10 blur-[130px]"></div>
+  </div>
+
+  <SectionHeading eyebrow="Contacto" id="contacto-heading" class="mb-16">
+    <HeadingLine d={0}>Hagamos algo</HeadingLine>
+    <HeadingLine d={1} accent glow>increíble</HeadingLine>
+    <HeadingLine d={2}>juntos<span class="text-primary">.</span></HeadingLine>
+  </SectionHeading>
+
+  <div class="grid items-start gap-16 lg:grid-cols-2 lg:gap-24">
+    <div class="reveal" style="--d:1">
+      <p class="mb-12 max-w-md font-mono text-lg text-gray-400">
+        Cuéntanos sobre tu proyecto y te responderemos en menos de 24 horas.
+      </p>
+
+      <ul class="border-t border-white/10">
+        {
+          channels.map((channel) => (
+            <li>
+              <a
+                href={channel.href}
+                target={channel.href.startsWith("http") ? "_blank" : undefined}
+                rel={channel.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                class="group flex items-center justify-between border-b border-white/10 py-6"
+                data-cursor-label={channel.label}
+              >
+                <span class="font-mono text-xs uppercase tracking-[0.15em] text-gray-500">
+                  {channel.label}
+                </span>
+                <span class="text-lg font-extrabold transition-colors group-hover:text-primary md:text-2xl">
+                  {channel.value}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="reveal" style="--d:2">
+      <ContactForm />
+    </div>
+  </div>
+</Section>

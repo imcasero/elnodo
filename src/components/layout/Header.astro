@@ -1,0 +1,55 @@
+---
+import Button from "@/components/ui/Button.astro";
+import Icon from "@/components/ui/Icon.astro";
+import Logo from "@/components/ui/Logo.astro";
+import Wordmark from "@/components/ui/Wordmark.astro";
+import MobileMenu from "@/components/layout/MobileMenu.astro";
+import { navLinks } from "@/data/navigation";
+---
+
+<header id="site-header" class="fixed inset-x-0 top-0 z-50 transition-colors duration-500">
+  <nav
+    class="flex items-center justify-between px-page py-6"
+    aria-label="Navegación principal"
+  >
+    <a href="/" class="group flex items-center gap-3" data-cursor-label="Inicio" aria-label="elnodo — inicio">
+      <Logo class="size-8 transition-transform duration-500 group-hover:rotate-180" />
+      <Wordmark class="text-xl" />
+    </a>
+
+    <div class="hidden items-center gap-9 md:flex">
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            class="link-underline font-mono text-xs uppercase tracking-[0.15em] text-gray-400 hover:text-light"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </div>
+
+    <Button
+      href="#contacto"
+      size="sm"
+      magnetic={0.4}
+      cursorLabel="Escríbenos"
+      class="hidden md:inline-flex"
+    >
+      Hablemos
+    </Button>
+
+    <button
+      id="menu-open"
+      class="text-light md:hidden"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <Icon name="menu" class="size-8" />
+    </button>
+  </nav>
+
+  <MobileMenu />
+</header>

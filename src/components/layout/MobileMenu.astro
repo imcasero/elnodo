@@ -1,0 +1,29 @@
+---
+import Button from "@/components/ui/Button.astro";
+import Icon from "@/components/ui/Icon.astro";
+import { navLinks } from "@/data/navigation";
+---
+
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-40 hidden bg-dark md:hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Menú de navegación"
+  aria-hidden="true"
+>
+  <nav class="flex h-full flex-col justify-center gap-2 px-6" aria-label="Navegación móvil">
+    {
+      navLinks.map((link) => (
+        <a href={link.href} class="display-sm text-light transition-colors hover:text-primary">
+          {link.label}
+        </a>
+      ))
+    }
+    <Button href="#contacto" class="mt-8 self-start">Hablemos</Button>
+  </nav>
+
+  <button id="menu-close" class="absolute right-6 top-6 text-light" aria-label="Cerrar menú">
+    <Icon name="close" class="size-8" />
+  </button>
+</div>

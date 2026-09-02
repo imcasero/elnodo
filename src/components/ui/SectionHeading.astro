@@ -1,0 +1,33 @@
+---
+import Eyebrow from "@/components/ui/Eyebrow.astro";
+
+interface Props {
+  eyebrow?: string;
+  id?: string;
+  as?: "h1" | "h2";
+  size?: "display" | "display-sm";
+  /** `muted` switches the eyebrow to the dark-on-lime treatment. */
+  tone?: "primary" | "muted";
+  class?: string;
+}
+
+const {
+  eyebrow,
+  id,
+  as: Tag = "h2",
+  size = "display",
+  tone = "primary",
+  class: className,
+} = Astro.props;
+---
+
+{
+  eyebrow && (
+    <Eyebrow tone={tone} bracket reveal class="mb-8">
+      {eyebrow}
+    </Eyebrow>
+  )
+}
+<Tag id={id} class:list={[size, "reveal-lines", className]}>
+  <slot />
+</Tag>

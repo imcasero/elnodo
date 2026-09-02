@@ -1,0 +1,33 @@
+---
+import type { Service } from "@/types";
+
+interface Props {
+  service: Service;
+  index: number;
+}
+
+const { service, index } = Astro.props;
+---
+
+<article
+  class="group reveal grid items-start gap-6 border-b border-white/10 py-10 transition-colors duration-500 hover:bg-white/[0.03] md:grid-cols-12 md:gap-8 md:py-14"
+  style={`--d:${index}`}
+  data-cursor-label="Servicio"
+>
+  <span class="font-mono text-sm text-primary md:col-span-1">{service.number}</span>
+  <h3
+    class="display-xs transition-transform duration-500 group-hover:translate-x-3 md:col-span-4"
+  >
+    {service.title}
+  </h3>
+  <p class="leading-relaxed text-gray-400 md:col-span-4">{service.description}</p>
+  <ul class="flex flex-wrap gap-2 md:col-span-3 md:justify-end">
+    {
+      service.features.map((feature) => (
+        <li class="rounded-full border border-white/15 px-3 py-1.5 font-mono text-[11px] uppercase tracking-wide text-gray-400 transition-colors duration-300 group-hover:border-primary/40 group-hover:text-primary">
+          {feature}
+        </li>
+      ))
+    }
+  </ul>
+</article>

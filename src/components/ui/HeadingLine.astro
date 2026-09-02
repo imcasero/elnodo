@@ -1,0 +1,28 @@
+---
+import AccentText from "@/components/ui/AccentText.astro";
+
+interface Props {
+  /** Stagger index — drives the mask-reveal delay via `--d`. */
+  d?: number;
+  /** Render the whole line as the serif italic accent. */
+  accent?: boolean;
+  glow?: boolean;
+  /** Accent colour context: `primary` on dark sections, `dark` on lime ones. */
+  tone?: "primary" | "dark";
+  class?: string;
+}
+
+const { d = 0, accent = false, glow = false, tone = "primary", class: className } = Astro.props;
+---
+
+<span style={`--d:${d}`} class:list={className}>
+  {
+    accent ? (
+      <AccentText tone={tone} glow={glow}>
+        <slot />
+      </AccentText>
+    ) : (
+      <slot />
+    )
+  }
+</span>

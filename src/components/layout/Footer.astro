@@ -1,0 +1,88 @@
+---
+import AccentText from "@/components/ui/AccentText.astro";
+import Eyebrow from "@/components/ui/Eyebrow.astro";
+import Wordmark from "@/components/ui/Wordmark.astro";
+import SocialLinks from "@/components/ui/SocialLinks.astro";
+import { navLinks } from "@/data/navigation";
+import { site } from "@/data/site";
+
+const currentYear = new Date().getFullYear();
+
+const contactLinks = [
+  { label: site.email, href: `mailto:${site.email}`, external: false },
+  { label: site.domain, href: site.url, external: true },
+];
+---
+
+<footer class="overflow-hidden border-t border-white/10">
+  <div class="container-site pb-10 pt-24">
+    <div class="grid gap-12 pb-20 lg:grid-cols-12 lg:gap-8">
+      <div class="lg:col-span-6">
+        <Eyebrow bracket class="mb-6">Estudio de diseño & desarrollo</Eyebrow>
+        <p class="display-xs max-w-xl leading-[1.1]">
+          ¿Tienes una idea?
+          <a href="#contacto" class="link-underline" data-cursor-label="Hablemos">
+            <AccentText>Hablemos</AccentText>
+          </a>.
+        </p>
+      </div>
+
+      <nav class="lg:col-span-3 lg:col-start-8" aria-label="Enlaces del pie de página">
+        <Eyebrow class="mb-6">Enlaces</Eyebrow>
+        <ul class="space-y-3">
+          {
+            navLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="link-underline font-mono text-sm text-gray-400 hover:text-light"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="lg:col-span-2">
+        <Eyebrow class="mb-6">Contacto</Eyebrow>
+        <ul class="space-y-3">
+          {
+            contactLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  target={link.external ? "_blank" : undefined}
+                  rel={link.external ? "noopener noreferrer" : undefined}
+                  class="link-underline break-all font-mono text-sm text-gray-400 hover:text-light"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <SocialLinks class="mt-8" />
+      </div>
+    </div>
+
+    <a href="#contacto" class="group block" aria-label="Ir a contacto" data-cursor-label="Hablemos">
+      <Wordmark
+        class="block border-t border-white/10 py-6 text-[clamp(3.5rem,17vw,15rem)] leading-[0.78] tracking-[-0.04em] transition-colors duration-500"
+        accentClass="text-primary transition-colors duration-500 group-hover:text-light"
+      />
+    </a>
+
+    <div
+      class="flex flex-col items-start gap-3 border-t border-white/10 pt-8 md:flex-row md:items-center md:justify-between"
+    >
+      <p class="font-mono text-xs text-gray-500">
+        &copy; {currentYear} {site.name} — Todos los derechos reservados.
+      </p>
+      <p class="font-mono text-xs text-gray-500">
+        Diseñado y desarrollado con <span class="text-primary">pasión</span>
+      </p>
+    </div>
+  </div>
+</footer>

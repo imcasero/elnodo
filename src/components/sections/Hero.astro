@@ -1,0 +1,67 @@
+---
+import Button from "@/components/ui/Button.astro";
+import Eyebrow from "@/components/ui/Eyebrow.astro";
+import HeadingLine from "@/components/ui/HeadingLine.astro";
+import Marquee from "@/components/ui/Marquee.astro";
+import { site } from "@/data/site";
+import { marqueeItems } from "@/data/marquee";
+---
+
+<section class="relative flex min-h-screen flex-col justify-center overflow-hidden pb-16 pt-32">
+  <!-- Atmosphere -->
+  <div class="absolute inset-0 -z-10" aria-hidden="true">
+    <div
+      class="absolute -left-[10%] top-[10%] h-[45vw] w-[45vw] rounded-full bg-primary/10 blur-[120px]"
+      data-parallax="0.06"
+    >
+    </div>
+    <div
+      class="absolute bottom-[5%] right-0 h-[35vw] w-[35vw] rounded-full bg-primary/5 blur-[120px]"
+      data-parallax="-0.04"
+    >
+    </div>
+    <div
+      class="absolute inset-0 bg-[linear-gradient(rgba(228,241,1,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(228,241,1,0.035)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_75%)]"
+    >
+    </div>
+  </div>
+
+  <div class="px-page w-full">
+    <div class="reveal mb-10 inline-flex items-center gap-3">
+      <span class="size-2 animate-pulse rounded-full bg-primary"></span>
+      <Eyebrow as="span">{site.availability}</Eyebrow>
+    </div>
+
+    <h1 class="display reveal-lines">
+      <HeadingLine d={0}>Diseñamos</HeadingLine>
+      <HeadingLine d={1} accent glow class="tracking-tight">experiencias</HeadingLine>
+      <HeadingLine d={2}>digitales que</HeadingLine>
+      <HeadingLine d={3}>conectan<span class="text-primary">.</span></HeadingLine>
+    </h1>
+
+    <div class="mt-14 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+      <p class="reveal max-w-md font-mono text-base text-gray-400 md:text-lg" style="--d:1">
+        Somos una agencia creativa especializada en diseño web y desarrollo.
+        Transformamos ideas en productos digitales excepcionales.
+      </p>
+      <div class="reveal flex flex-col gap-4 sm:flex-row" style="--d:2">
+        <Button href="#proyectos" magnetic={0.3} cursorLabel="Ver">Ver proyectos</Button>
+        <Button href="#contacto" variant="outline" magnetic={0.3}>Iniciar proyecto</Button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2"
+    aria-hidden="true"
+  >
+    <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-gray-500">scroll</span>
+    <span class="h-14 w-px bg-gradient-to-b from-primary to-transparent"></span>
+  </div>
+</section>
+
+<Marquee
+  items={marqueeItems}
+  speed="26s"
+  class="border-y border-white/10 bg-primary py-5 text-dark"
+/>

@@ -1,0 +1,16 @@
+---
+import type { Value } from "@/types";
+
+interface Props {
+  value: Value;
+  index: number;
+}
+
+const { value, index } = Astro.props;
+---
+
+<div class="reveal" style={`--d:${index}`}>
+  <span class="mb-4 block font-mono text-xs text-primary">{value.label}</span>
+  <h3 class="mb-3 text-2xl font-extrabold">{value.title}</h3>
+  <p class="font-mono text-sm leading-relaxed text-gray-400">{value.description}</p>
+</div>

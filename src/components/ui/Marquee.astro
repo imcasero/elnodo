@@ -1,0 +1,38 @@
+---
+interface Props {
+  items: string[];
+  /** Full loop duration. */
+  speed?: string;
+  direction?: "normal" | "reverse";
+  separator?: string;
+  class?: string;
+}
+
+const {
+  items,
+  speed = "30s",
+  direction = "normal",
+  separator = "·",
+  class: className,
+} = Astro.props;
+
+// Interleave separators, then duplicate the track for a seamless loop.
+const sequence = items.flatMap((item) => [item, separator]);
+---
+
+<div
+  class:list={["marquee", className]}
+  data-dir={direction === "reverse" ? "reverse" : undefined}
+  style={`--speed:${speed}`}
+  aria-hidden="true"
+>
+  {
+    [0, 1].map(() => (
+      <div class="marquee__track">
+        {sequence.map((word) => (
+          <span class="display-xs whitespace-nowrap">{word}</span>
+        ))}
+      </div>
+    ))
+  }
+</div>

@@ -1,5 +1,7 @@
 ---
-import '../styles/global.css';
+import "@/styles/global.css";
+import Cursor from "@/components/layout/Cursor.astro";
+import { site } from "@/data/site";
 
 interface Props {
   title?: string;
@@ -8,12 +10,27 @@ interface Props {
 }
 
 const {
-  title = "elnodo | Agencia de Diseño y Desarrollo Web",
-  description = "Agencia creativa especializada en diseño web y desarrollo. Transformamos ideas en experiencias digitales excepcionales.",
-  ogImage = "/og-image.png",
+  title = site.title,
+  description = site.description,
+  ogImage = site.ogImage,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const resolvedOgImage = new URL(ogImage, Astro.site);
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: site.name,
+  url: site.url,
+  email: site.email,
+  description: site.description,
+  sameAs: [
+    "https://www.instagram.com/elnodo.studio",
+    "https://www.linkedin.com/company/elnodo",
+    "https://dribbble.com/elnodo",
+  ],
+};
 ---
 
 <!doctype html>
@@ -21,9 +38,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="generator" content={Astro.generator} />
 
-    <!-- SEO básico -->
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
@@ -33,45 +48,36 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
-    <meta property="og:locale" content="es_ES" />
-    <meta property="og:site_name" content="elnodo" />
+    <meta property="og:image" content={resolvedOgImage} />
+    <meta property="og:locale" content={site.locale} />
+    <meta property="og:site_name" content={site.name} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
+    <meta name="twitter:image" content={resolvedOgImage} />
 
-    <!-- Favicons -->
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
-    <link rel="icon" type="image/png" href="/icon-dark-32x32.png" media="(prefers-color-scheme: dark)" />
-    <link rel="icon" type="image/png" href="/icon-light-32x32.png" media="(prefers-color-scheme: light)" />
-    <link rel="apple-touch-icon" href="/apple-icon.png" />
+    <link rel="mask-icon" href="/icon.svg" color="#e4f101" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
 
-    <!-- JSON-LD: Organization -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "elnodo",
-        "url": "https://elnodo.studio",
-        "email": "hola@elnodo.studio",
-        "description": "Agencia creativa especializada en diseño web y desarrollo digital.",
-        "sameAs": [
-          "https://www.instagram.com/elnodo.studio",
-          "https://www.linkedin.com/company/elnodo",
-          "https://dribbble.com/elnodo"
-        ]
-      }
-    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
   </head>
-  <body class="bg-dark text-light antialiased overflow-x-hidden">
+  <body class="overflow-x-hidden bg-dark text-light antialiased">
+    <Cursor />
     <slot />
+
+    <script>
+      import "@/lib/main";
+    </script>
   </body>
 </html>

@@ -1,0 +1,24 @@
+---
+interface Props {
+  as?: "p" | "span" | "div";
+  tone?: "primary" | "muted";
+  /** Wrap the label in `( … )` brackets — the section-label motif. */
+  bracket?: boolean;
+  reveal?: boolean;
+  class?: string;
+}
+
+const {
+  as: Tag = "p",
+  tone = "primary",
+  bracket = false,
+  reveal = false,
+  class: className,
+} = Astro.props;
+
+const toneClass = tone === "muted" ? "text-dark/60" : "text-primary";
+---
+
+<Tag class:list={["eyebrow", toneClass, reveal && "reveal", className]}>
+  {bracket && "( "}<slot />{bracket && " )"}
+</Tag>
