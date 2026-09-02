@@ -27,56 +27,43 @@ const services = [
 ];
 ---
 
-<section id="servicios" class="section-padding bg-dark relative">
-  <!-- Section header -->
-  <div class="max-w-7xl mx-auto mb-20">
-    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+<section id="servicios" class="section-padding bg-dark relative border-t border-white/10">
+  <div class="max-w-[1600px] mx-auto">
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-20">
       <div>
-        <span class="font-mono text-primary text-sm mb-4 block">// Servicios</span>
-        <h2 class="text-4xl md:text-5xl font-bold">
-          Lo que
-          <span class="text-primary">hacemos</span>
+        <p class="eyebrow mb-8 reveal">( Servicios )</p>
+        <h2 class="display reveal-lines">
+          <span style="--d:0">Lo que</span>
+          <span style="--d:1" class="text-primary italic font-serif lowercase">hacemos</span>
         </h2>
       </div>
-      <p class="font-mono text-gray-400 max-w-md text-sm">
-        Combinamos diseño estratégico con desarrollo técnico para crear productos digitales que impulsan tu negocio.
+      <p class="font-mono text-gray-400 max-w-sm text-sm reveal" style="--d:1">
+        Combinamos diseño estratégico con desarrollo técnico para crear productos
+        digitales que impulsan tu negocio.
       </p>
     </div>
-  </div>
 
-  <!-- Services grid -->
-  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-6">
-    {services.map((service, index) => (
-      <div 
-        class="group relative p-8 md:p-10 rounded-2xl border border-gray-800 bg-gray-900/30 hover:border-primary/50 transition-all duration-500 hover:bg-gray-900/50"
-      >
-        <!-- Glow effect on hover -->
-        <div class="absolute inset-0 rounded-2xl bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
-        
-        <div class="relative z-10">
-          <!-- Number -->
-          <span class="font-mono text-primary text-sm">{service.number}</span>
-          
-          <!-- Title -->
-          <h3 class="text-2xl md:text-3xl font-bold mt-4 mb-4 group-hover:text-primary transition-colors duration-300">
+    <div class="border-t border-white/10">
+      {services.map((service, i) => (
+        <article
+          class="group grid md:grid-cols-12 gap-6 md:gap-8 items-start py-10 md:py-14 border-b border-white/10 transition-colors duration-500 hover:bg-white/[0.03] reveal"
+          style={`--d:${i}`}
+          data-cursor-label="Servicio"
+        >
+          <span class="md:col-span-1 font-mono text-sm text-primary">{service.number}</span>
+          <h3 class="md:col-span-4 display-sm !text-[clamp(1.8rem,4vw,3rem)] transition-transform duration-500 group-hover:translate-x-3">
             {service.title}
           </h3>
-          
-          <!-- Description -->
-          <p class="text-gray-400 mb-6 leading-relaxed">
-            {service.description}
-          </p>
-          
-          <!-- Features -->
-          <div class="flex flex-wrap gap-2">
+          <p class="md:col-span-4 text-gray-400 leading-relaxed">{service.description}</p>
+          <div class="md:col-span-3 flex flex-wrap gap-2 md:justify-end">
             {service.features.map((feature) => (
-              <span class="font-mono text-xs px-3 py-1.5 rounded-full border border-gray-700 text-gray-400 group-hover:border-primary/30 group-hover:text-primary transition-all duration-300">
+              <span class="font-mono text-[11px] uppercase tracking-wide px-3 py-1.5 rounded-full border border-white/15 text-gray-400 group-hover:border-primary/40 group-hover:text-primary transition-colors duration-300">
                 {feature}
               </span>
             ))}
           </div>
-        </div>
-      </div>
-    ))}
+        </article>
+      ))}
+    </div>
   </div>
 </section>

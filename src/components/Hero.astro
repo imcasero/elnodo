@@ -1,62 +1,68 @@
 ---
 ---
 
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-  <!-- Background Effects -->
-  <div class="absolute inset-0">
-    <!-- Gradient orbs -->
-    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse-glow"></div>
-    <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/5 rounded-full blur-3xl animate-pulse-glow animation-delay-200"></div>
-    
-    <!-- Grid pattern -->
-    <div class="absolute inset-0 bg-[linear-gradient(rgba(228,241,1,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(228,241,1,0.03)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+<section class="relative min-h-screen flex flex-col justify-center overflow-hidden pt-32 pb-16">
+  <!-- Atmosphere -->
+  <div class="absolute inset-0 -z-10" aria-hidden="true">
+    <div class="absolute top-[10%] -left-[10%] w-[45vw] h-[45vw] bg-primary/10 rounded-full blur-[120px]" data-parallax="0.06"></div>
+    <div class="absolute bottom-[5%] right-[0%] w-[35vw] h-[35vw] bg-primary/5 rounded-full blur-[120px]" data-parallax="-0.04"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(rgba(228,241,1,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(228,241,1,0.035)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_75%)]"></div>
   </div>
 
-  <div class="relative z-10 section-padding text-center max-w-6xl mx-auto">
-    <!-- Badge -->
-    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-800 bg-gray-900/50 backdrop-blur-sm mb-8 opacity-0 animate-slide-up">
+  <div class="px-6 md:px-12 lg:px-20 w-full">
+    <div class="inline-flex items-center gap-3 mb-10 reveal">
       <span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-      <span class="font-mono text-xs text-gray-400">Disponibles para proyectos</span>
+      <span class="eyebrow">Estudio de diseño & desarrollo · Disponibles 2026</span>
     </div>
 
-    <!-- Main Heading -->
-    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8 opacity-0 animate-slide-up animation-delay-200">
-      Diseñamos y desarrollamos
-      <br />
-      <span class="text-primary text-glow">experiencias digitales</span>
-      <br />
-      que conectan
+    <h1 class="display reveal-lines">
+      <span style="--d:0">Diseñamos</span>
+      <span style="--d:1" class="text-primary text-glow italic font-serif lowercase tracking-tight">experiencias</span>
+      <span style="--d:2">digitales que</span>
+      <span style="--d:3">conectan<span class="text-primary">.</span></span>
     </h1>
 
-    <!-- Subheading -->
-    <p class="font-mono text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 opacity-0 animate-slide-up animation-delay-400">
-      Somos una agencia creativa especializada en diseño web y desarrollo. 
-      Transformamos ideas en productos digitales excepcionales.
-    </p>
-
-    <!-- CTA Buttons -->
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 opacity-0 animate-slide-up animation-delay-600">
-      <a href="#proyectos" class="btn-primary">
-        Ver proyectos
-      </a>
-      <a href="#contacto" class="btn-outline">
-        Iniciar proyecto
-      </a>
-    </div>
-
-    <!-- Scroll indicator -->
-    <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-      <span class="font-mono text-xs text-gray-500">scroll</span>
-      <div class="w-px h-16 bg-gradient-to-b from-primary to-transparent"></div>
+    <div class="mt-14 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
+      <p class="font-mono text-gray-400 text-base md:text-lg max-w-md reveal" style="--d:1">
+        Somos una agencia creativa especializada en diseño web y desarrollo.
+        Transformamos ideas en productos digitales excepcionales.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 reveal" style="--d:2">
+        <a href="#proyectos" class="btn-primary" data-magnetic="0.3" data-cursor-label="Ver">Ver proyectos</a>
+        <a href="#contacto" class="btn-outline" data-magnetic="0.3">Iniciar proyecto</a>
+      </div>
     </div>
   </div>
 
-  <!-- Floating icon -->
-  <div class="absolute right-12 top-1/2 -translate-y-1/2 hidden lg:block animate-float">
-    <img 
-      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/6455A959-862B-428E-9133-D479FDD5CD45-jVqHebE63qMevBlbWWcFD0ZOc7bWbB.png" 
-      alt="elnodo design element" 
-      class="w-32 h-32 opacity-20"
-    />
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2" aria-hidden="true">
+    <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-gray-500">scroll</span>
+    <span class="w-px h-14 bg-gradient-to-b from-primary to-transparent"></span>
   </div>
 </section>
+
+<!-- Marquee ticker -->
+<div class="border-y border-white/10 py-5 bg-primary text-dark overflow-hidden" aria-hidden="true">
+  <div class="marquee" style="--speed:26s">
+    {Array.from({ length: 2 }).map(() => (
+      <div class="marquee__track">
+        {["Diseño Web", "·", "Desarrollo", "·", "Branding Digital", "·", "UI / UX", "·", "Motion", "·", "Consultoría", "·"].map((w) => (
+          <span class="display-sm !text-[clamp(1.4rem,3.2vw,2.6rem)] whitespace-nowrap">{w}</span>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) {
+    const items = document.querySelectorAll<HTMLElement>('[data-parallax]');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      items.forEach((el) => {
+        const speed = Number(el.getAttribute('data-parallax')) || 0;
+        el.style.transform = `translate3d(0, ${y * speed}px, 0)`;
+      });
+    }, { passive: true });
+  }
+</script>

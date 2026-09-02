@@ -21,7 +21,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="generator" content={Astro.generator} />
 
     <!-- SEO básico -->
     <title>{title}</title>
@@ -43,16 +42,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
 
-    <!-- Favicons -->
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
-    <link rel="icon" type="image/png" href="/icon-dark-32x32.png" media="(prefers-color-scheme: dark)" />
-    <link rel="icon" type="image/png" href="/icon-light-32x32.png" media="(prefers-color-scheme: light)" />
-    <link rel="apple-touch-icon" href="/apple-icon.png" />
+    <link rel="mask-icon" href="/icon.svg" color="#e4f101" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 
     <!-- JSON-LD: Organization -->
     <script type="application/ld+json">
@@ -72,6 +69,101 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </script>
   </head>
   <body class="bg-dark text-light antialiased overflow-x-hidden">
+    <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+    <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+    <span class="cursor-label" id="cursor-label" aria-hidden="true"></span>
+
     <slot />
+
+    <script>
+      // ---------- Custom cursor with lag + magnetic + reveal ----------
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const coarse = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+
+      if (!coarse) {
+        const dot = document.getElementById('cursor-dot')!;
+        const ring = document.getElementById('cursor-ring')!;
+        const label = document.getElementById('cursor-label')!;
+
+        let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+        let rx = mx, ry = my;
+
+        window.addEventListener('pointermove', (e) => {
+          mx = e.clientX; my = e.clientY;
+          dot.style.transform = `translate(${mx}px, ${my}px)`;
+          label.style.transform = `translate(${mx}px, ${my - 0}px) translate(-50%, -50%)`;
+        });
+
+        const tick = () => {
+          rx += (mx - rx) * (reduce ? 1 : 0.16);
+          ry += (my - ry) * (reduce ? 1 : 0.16);
+          ring.style.transform = `translate(${rx}px, ${ry}px)`;
+          requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+
+        const hoverSel = 'a, button, [data-cursor], input, textarea, select, label';
+        document.querySelectorAll<HTMLElement>(hoverSel).forEach((el) => {
+          const text = el.getAttribute('data-cursor-label');
+          el.addEventListener('pointerenter', () => {
+            if (text) {
+              ring.setAttribute('data-variant', 'label');
+              label.textContent = text;
+              label.classList.add('is-visible');
+            } else {
+              ring.setAttribute('data-variant', 'hover');
+            }
+          });
+          el.addEventListener('pointerleave', () => {
+            ring.removeAttribute('data-variant');
+            label.classList.remove('is-visible');
+          });
+        });
+
+        window.addEventListener('mouseout', (e) => {
+          if (!e.relatedTarget) {
+            dot.style.opacity = '0';
+            ring.style.opacity = '0';
+          }
+        });
+        window.addEventListener('mouseover', () => {
+          dot.style.opacity = '1';
+          ring.style.opacity = '1';
+        });
+      }
+
+      // ---------- Magnetic elements ----------
+      if (!coarse && !reduce) {
+        document.querySelectorAll<HTMLElement>('[data-magnetic]').forEach((el) => {
+          const strength = Number(el.getAttribute('data-magnetic')) || 0.35;
+          el.style.transition = 'transform .4s cubic-bezier(.16,1,.3,1)';
+          el.addEventListener('pointermove', (e) => {
+            const r = el.getBoundingClientRect();
+            const x = e.clientX - (r.left + r.width / 2);
+            const y = e.clientY - (r.top + r.height / 2);
+            el.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
+          });
+          el.addEventListener('pointerleave', () => {
+            el.style.transform = 'translate(0, 0)';
+          });
+        });
+      }
+
+      // ---------- Scroll reveal ----------
+      const revealEls = document.querySelectorAll('.reveal, .reveal-lines');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-in');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+        revealEls.forEach((el) => io.observe(el));
+      } else {
+        revealEls.forEach((el) => el.classList.add('is-in'));
+      }
+    </script>
   </body>
 </html>
