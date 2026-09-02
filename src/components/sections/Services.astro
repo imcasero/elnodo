@@ -1,0 +1,24 @@
+---
+import Section from "@/components/layout/Section.astro";
+import SectionHeading from "@/components/ui/SectionHeading.astro";
+import HeadingLine from "@/components/ui/HeadingLine.astro";
+import ServiceRow from "@/components/cards/ServiceRow.astro";
+import { services } from "@/data/services";
+---
+
+<Section id="servicios" class="border-t border-white/10">
+  <div class="mb-20 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+    <SectionHeading eyebrow="Servicios">
+      <HeadingLine d={0}>Lo que</HeadingLine>
+      <HeadingLine d={1} accent>hacemos</HeadingLine>
+    </SectionHeading>
+    <p class="reveal max-w-sm font-mono text-sm text-gray-400" style="--d:1">
+      Combinamos diseño estratégico con desarrollo técnico para crear productos
+      digitales que impulsan tu negocio.
+    </p>
+  </div>
+
+  <div class="border-t border-white/10">
+    {services.map((service, index) => <ServiceRow service={service} index={index} />)}
+  </div>
+</Section>

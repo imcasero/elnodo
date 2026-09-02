@@ -1,0 +1,49 @@
+---
+interface Props {
+  variant?: "primary" | "outline";
+  size?: "md" | "sm";
+  /** Renders an `<a>` when set, otherwise a `<button>`. */
+  href?: string;
+  type?: "button" | "submit" | "reset";
+  target?: string;
+  rel?: string;
+  /** Enables the magnetic hover pull; a number overrides the strength. */
+  magnetic?: boolean | number;
+  /** Caption shown in the custom cursor on hover. */
+  cursorLabel?: string;
+  class?: string;
+  "aria-label"?: string;
+}
+
+const {
+  variant = "primary",
+  size = "md",
+  href,
+  type = "button",
+  target,
+  rel,
+  magnetic = false,
+  cursorLabel,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const Tag = href ? "a" : "button";
+const variantClass = variant === "primary" ? "btn-primary" : "btn-outline";
+const sizeClass = size === "sm" ? "!px-6 !py-3 !text-xs" : "";
+const magneticValue =
+  magnetic === false ? undefined : magnetic === true ? "0.35" : String(magnetic);
+---
+
+<Tag
+  href={href}
+  type={href ? undefined : type}
+  target={target}
+  rel={rel}
+  class:list={[variantClass, sizeClass, className]}
+  data-magnetic={magneticValue}
+  data-cursor-label={cursorLabel}
+  {...rest}
+>
+  <slot />
+</Tag>

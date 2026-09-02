@@ -1,0 +1,29 @@
+---
+import Section from "@/components/layout/Section.astro";
+import SectionHeading from "@/components/ui/SectionHeading.astro";
+import HeadingLine from "@/components/ui/HeadingLine.astro";
+import AccentText from "@/components/ui/AccentText.astro";
+import TeamCard from "@/components/cards/TeamCard.astro";
+import ValueItem from "@/components/cards/ValueItem.astro";
+import { team, values } from "@/data/team";
+---
+
+<Section id="nosotros" class="overflow-hidden" aria-labelledby="nosotros-heading">
+  <SectionHeading eyebrow="Nosotros" id="nosotros-heading" size="display-sm">
+    <HeadingLine d={0}>Dos mentes,</HeadingLine>
+    <HeadingLine d={1}>un <AccentText>estudio</AccentText></HeadingLine>
+  </SectionHeading>
+
+  <p class="reveal mt-10 max-w-2xl font-mono text-lg text-gray-400" style="--d:1">
+    Somos Carmen y Diego — diseñadora y desarrollador. Unimos criterio estético y
+    precisión técnica para crear productos digitales que funcionan y enamoran.
+  </p>
+
+  <div class="mt-20 grid gap-px border border-white/10 bg-white/10 md:grid-cols-2">
+    {team.map((member, index) => <TeamCard member={member} index={index} />)}
+  </div>
+
+  <div class="mt-16 grid gap-10 border-t border-white/10 pt-16 md:grid-cols-3 md:gap-8">
+    {values.map((value, index) => <ValueItem value={value} index={index} />)}
+  </div>
+</Section>

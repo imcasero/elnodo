@@ -1,0 +1,23 @@
+---
+import Section from "@/components/layout/Section.astro";
+import SectionHeading from "@/components/ui/SectionHeading.astro";
+import HeadingLine from "@/components/ui/HeadingLine.astro";
+import ProcessStep from "@/components/cards/ProcessStep.astro";
+import { processSteps } from "@/data/process";
+---
+
+<Section id="proceso" class="overflow-hidden bg-primary text-dark">
+  <div class="mb-20">
+    <SectionHeading eyebrow="Proceso" tone="muted">
+      <HeadingLine d={0}>Cómo</HeadingLine>
+      <HeadingLine d={1} accent tone="dark">trabajamos</HeadingLine>
+    </SectionHeading>
+    <p class="reveal mt-10 max-w-xl font-mono text-dark/70" style="--d:1">
+      Un proceso colaborativo y transparente diseñado para entregar resultados excepcionales.
+    </p>
+  </div>
+
+  <div class="border-t border-dark/20">
+    {processSteps.map((step, index) => <ProcessStep step={step} index={index} />)}
+  </div>
+</Section>

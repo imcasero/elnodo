@@ -1,0 +1,33 @@
+---
+interface Props {
+  id?: string;
+  /** Vertical rhythm — disable when the section paces itself. */
+  spacing?: boolean;
+  /** Wrap children in the centered, padded container. */
+  contained?: boolean;
+  class?: string;
+  containerClass?: string;
+  "aria-labelledby"?: string;
+}
+
+const {
+  id,
+  spacing = true,
+  contained = true,
+  class: className,
+  containerClass,
+  ...rest
+} = Astro.props;
+---
+
+<section id={id} class:list={["relative", spacing && "section-y", className]} {...rest}>
+  {
+    contained ? (
+      <div class:list={["container-site", containerClass]}>
+        <slot />
+      </div>
+    ) : (
+      <slot />
+    )
+  }
+</section>

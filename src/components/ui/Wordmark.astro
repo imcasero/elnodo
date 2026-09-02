@@ -1,0 +1,14 @@
+---
+interface Props {
+  /** Classes for the wordmark wrapper. */
+  class?: string;
+  /** Classes for the accented "nodo" half (defaults to the brand colour). */
+  accentClass?: string;
+}
+
+const { class: className, accentClass = "text-primary" } = Astro.props;
+---
+
+<span class:list={["font-extrabold uppercase tracking-tight", className]}>
+  el<span class:list={accentClass}>nodo</span>
+</span>

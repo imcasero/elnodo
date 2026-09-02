@@ -1,0 +1,38 @@
+---
+import Button from "@/components/ui/Button.astro";
+import FormField from "@/components/forms/FormField.astro";
+import { services } from "@/data/services";
+
+const serviceOptions = [
+  { value: "", label: "Selecciona un servicio" },
+  ...services.map((service) => ({
+    value: service.title.toLowerCase().replace(/\s+/g, "-"),
+    label: service.title,
+  })),
+];
+---
+
+<form class="space-y-8" aria-label="Formulario de contacto" novalidate>
+  <div class="grid gap-8 sm:grid-cols-2">
+    <FormField id="name" label="Nombre" required placeholder="Tu nombre" />
+    <FormField id="email" label="Email" type="email" required placeholder="tu@email.com" />
+  </div>
+
+  <FormField id="service" label="Servicio" type="select" options={serviceOptions} />
+
+  <FormField
+    id="message"
+    label="Mensaje"
+    type="textarea"
+    required
+    placeholder="Cuéntanos sobre tu proyecto..."
+  />
+
+  <Button type="submit" class="w-full sm:w-auto" magnetic={0.25} cursorLabel="Enviar">
+    Enviar mensaje
+  </Button>
+
+  <p class="font-mono text-xs text-gray-500">
+    <span class="text-primary" aria-hidden="true">*</span> Campos obligatorios
+  </p>
+</form>

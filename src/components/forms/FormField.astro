@@ -1,0 +1,82 @@
+---
+import Icon from "@/components/ui/Icon.astro";
+
+interface Props {
+  id: string;
+  label: string;
+  type?: "text" | "email" | "textarea" | "select";
+  required?: boolean;
+  placeholder?: string;
+  rows?: number;
+  options?: { value: string; label: string }[];
+  class?: string;
+}
+
+const {
+  id,
+  label,
+  type = "text",
+  required = false,
+  placeholder,
+  rows = 4,
+  options = [],
+  class: className,
+} = Astro.props;
+
+const controlClass =
+  "w-full border-b border-white/20 bg-transparent py-3 text-light transition-colors placeholder:text-gray-600 focus:border-primary focus:outline-none";
+---
+
+<div class:list={className}>
+  <label
+    for={id}
+    class="mb-3 flex items-center gap-1 font-mono text-xs uppercase tracking-[0.12em] text-gray-400"
+  >
+    {label}
+    {required && <span class="text-primary" aria-hidden="true">*</span>}
+  </label>
+
+  {
+    type === "textarea" ? (
+      <textarea
+        id={id}
+        name={id}
+        rows={rows}
+        required={required}
+        aria-required={required ? "true" : undefined}
+        placeholder={placeholder}
+        class:list={[controlClass, "resize-none"]}
+      />
+    ) : type === "select" ? (
+      <div class="relative">
+        <select
+          id={id}
+          name={id}
+          required={required}
+          aria-required={required ? "true" : undefined}
+          class:list={[controlClass, "cursor-pointer appearance-none pr-10"]}
+        >
+          {options.map((option) => (
+            <option class="bg-dark" value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+        <Icon
+          name="chevron-down"
+          class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-400"
+        />
+      </div>
+    ) : (
+      <input
+        type={type}
+        id={id}
+        name={id}
+        required={required}
+        aria-required={required ? "true" : undefined}
+        placeholder={placeholder}
+        class={controlClass}
+      />
+    )
+  }
+</div>
