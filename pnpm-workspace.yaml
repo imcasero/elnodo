@@ -7,3 +7,5 @@ minimumReleaseAgeExclude:
 allowBuilds:
   esbuild: false
   sharp: true
+
+savePrefix: ''
