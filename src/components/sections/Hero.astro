@@ -5,6 +5,7 @@ import HeadingLine from "@/components/ui/HeadingLine.astro";
 import Marquee from "@/components/ui/Marquee.astro";
 import { site } from "@/data/site";
 import { marqueeItems } from "@/data/marquee";
+import { hasProjects } from "@/data/projects";
 ---
 
 <section class="relative flex min-h-screen flex-col justify-center overflow-hidden pb-16 pt-32">
@@ -45,8 +46,18 @@ import { marqueeItems } from "@/data/marquee";
         Transformamos ideas en productos digitales excepcionales.
       </p>
       <div class="reveal flex flex-col gap-4 sm:flex-row" style="--d:2">
-        <Button href="#proyectos" magnetic={0.3} cursorLabel="Ver">Ver proyectos</Button>
-        <Button href="#contacto" variant="outline" magnetic={0.3}>Iniciar proyecto</Button>
+        {
+          hasProjects && (
+            <Button href="#proyectos" magnetic={0.3} cursorLabel="Ver">
+              Ver proyectos
+            </Button>
+          )
+        }
+        <Button
+          href="#contacto"
+          variant={hasProjects ? "outline" : "primary"}
+          magnetic={0.3}>Iniciar proyecto</Button
+        >
       </div>
     </div>
   </div>
