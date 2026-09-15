@@ -36,6 +36,7 @@ export interface TeamMember {
   name: string;
   role: string;
   bio: string;
+  website?: string;
 }
 
 export interface Value {

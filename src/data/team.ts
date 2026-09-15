@@ -5,11 +5,13 @@ export const team: TeamMember[] = [
     name: "Carmen",
     role: "Diseño & Dirección creativa",
     bio: "Transforma ideas en interfaces que las personas quieren usar. Especializada en UX, sistemas de diseño e identidad digital.",
+    website: "https://carmen.elnodo.studio",
   },
   {
     name: "Diego",
     role: "Desarrollo & Arquitectura web",
     bio: "Convierte diseños en experiencias web rápidas, accesibles y escalables. Apasionado por el código limpio y las tecnologías modernas.",
+    website: "https://imcasero.dev",
   },
 ];
 
